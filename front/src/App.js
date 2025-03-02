@@ -1,24 +1,16 @@
-import axios from 'axios';
-import './App.css';
-
-const port = process.env.PORT || 3000;
-
-const apiCall = () => {
-  axios.get('http://localhost:' + port).then((data) => {
-    console.log(data)
-  })
-}
+import { Container, Col, Row } from "react-bootstrap";
+import Register from "./Register";
+import Login from "./Login";
 
 function App() {
-  return (
-      <div className="App">
-        <header className="App-header">
-
-          <button onClick={apiCall}>Make API Call</button>
-
-        </header>
-      </div>
-  );
+    return (
+        <Container>
+            <Row>
+                <Col xs={12} sm={12} md={6} lg={6}><Register/></Col>
+                <Col xs={12} sm={12} md={6} lg={6}><Login/></Col>
+            </Row>
+        </Container>
+    );
 }
 
 export default App;

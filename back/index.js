@@ -8,13 +8,30 @@ const port = process.env.PORT || 3000;
 
 dbConnect();
 
-app.use(cors());
+const WebSocket = require("ws");
+const server = new WebSocket.Server({ port: 5000 });
+
+server.on("connection", (ws) => {
+    ws.on("message", (message) => {
+        const data = JSON.parse(message);
+        if (data.type === "click") {
+            console.log(`Kliknięcie od gracza!`);
+        }
+    });
+});
+
+const corsOptions = {
+    origin: 'http://localhost:3001',
+    credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const userRoutes = require('./routes/userRoutes');
 
-app.use('/users', userRoutes)
+app.use('/user', userRoutes)
 
 const endpoints = expressListEndpoints(app);
 

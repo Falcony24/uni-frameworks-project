@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Form, Button } from "react-bootstrap";
+import userAPI from '../userAPI'
 import axios from "axios";
 
 export default function Register() {
@@ -13,12 +14,13 @@ export default function Register() {
 
         const configuration = {
             method: "post",
-            url: "http://localhost:3000/users/register",
+            url: "http://localhost:3000/user/register",
             data: {
                 email,
                 username,
                 password,
             },
+            config: { withCredentials: true }
         };
 
         axios(configuration)
@@ -74,7 +76,6 @@ export default function Register() {
                 <Button
                     variant="primary"
                     type="submit"
-                    onClick={(e) => handleSubmit(e)}
                 >
                     Register
                 </Button>

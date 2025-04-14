@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const {hash} = require("bcrypt");
+require('dotenv').config()
 
 const UsersSchema = new mongoose.Schema({
     username: {
@@ -15,21 +17,23 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required']
     },
+    role: {
+        type: String,
+        enum: ['USER', 'ADMIN', 'SHOP_ADMIN', 'GAME_ADMIN'],
+        default: 'USER'
+    },
     created_at: {
         type: Date,
         default: Date.now
     },
-    role: {
-        type: String,
-        enum: ['USER', 'ADMIN'],
-        required: true,
-        default: 'USER'
-    },
-    player_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Players',
-        required: true
+    updated_at: {
+        type: Date,
+        default: Date.now
     }
 });
 
-module.exports = mongoose.model('Users', UsersSchema);
+UsersSchema.pre("save", async function () {
+    this.password = await hash(this.password, 12);
+});
+
+module.exports = mongoose.model('users', UsersSchema);

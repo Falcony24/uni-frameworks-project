@@ -1,17 +1,21 @@
-const express = require('express');
-const { registerUser, loginUser, profileUser, changeCredentials, deleteUser, logoutUser } = require('../controllers/userController');
+const express = require('express')
+const { profile, getProfileData, changeUserData, deleteData, deleteProfile, putData
+} = require('../controllers/userController')
+const { auth } = require("../middlewares/auth")
+
+const router = express.Router()
+
+// /users
+
+// logged user
+router.get('/', auth, profile)                  //ok
+router.get('/data/:type', auth, getProfileData) //ok
+
+router.put('/:type', auth, putData)
+
+router.patch('/:type', auth, changeUserData)    //ok
+
+router.delete('/', auth, deleteProfile)         //ok
 
 
-const router = express.Router();
-
-router.get('/profile', profileUser);
-router.get('/logout', logoutUser)
-
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-
-router.put('/change', changeCredentials);
-
-router.delete('/delete', deleteUser)
-
-module.exports = router;
+module.exports = router

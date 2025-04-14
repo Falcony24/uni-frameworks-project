@@ -1,0 +1,46 @@
+/* components/Upgrade/upgrade.css */
+.upgrade-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.upgrade-image {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.upgrade-image:hover {
+    transform: scale(1.1);
+}
+
+.upgrade-image.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upgrade-tooltip {
+    /* Keep your existing tooltip styles */
+}
+
+.upgrade-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+.upgrade-tooltip div {
+    margin: 4px 0;
+}
+

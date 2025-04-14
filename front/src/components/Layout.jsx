@@ -1,11 +1,11 @@
-import Navbar from './Navbar';
-import {Outlet, Route} from "react-router-dom"
-import CliickerGame from "./CliickerGame";
+import Index from './Navbar';
+import { Outlet } from "react-router-dom"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Layout() {
         return (
             <>
-                <Navbar />
+                <Index />
                     <Outlet />
             </>
         )

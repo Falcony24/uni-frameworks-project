@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import at32 from '../assets/images/at32.svg'
-import userAPI from '../userAPI'
+import at32 from '../../assets/images/ClickerGame/MainClicker/at32.svg'
+import userAPI from '../../api/userAPI'
 
 const socket = new WebSocket("ws://localhost:5000");
 
-export default function ClickerGame() {
+export default function Index() {
     const [clicks, setClicks] = useState(0);
 
     const handleClick = () => {

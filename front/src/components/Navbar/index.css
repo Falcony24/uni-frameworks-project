@@ -1,0 +1,117 @@
+/* Navbar Container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 1rem auto;
+    max-width: 1200px;
+    position: relative;
+}
+
+/* Navbar Groups */
+.navbar-group {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Center Group - For Game/Profile */
+.navbar-group.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Right Group - For Auth/Logout */
+.navbar-group.right {
+    margin-left: auto;
+}
+
+/* Navbar Items */
+.navbar-item {
+    text-decoration: none;
+}
+
+/* Base Button Styles */
+.navbar-item .btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+/* Main Navigation Buttons (Center) */
+.navbar-group.center .btn {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    border: 1px solid #bee3f8;
+}
+
+.navbar-group.center .btn:hover {
+    background-color: #bee3f8;
+}
+
+/* Auth Buttons (Right) */
+.navbar-group.right .btn:not(.logout) {
+    background-color: #f8fafc;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+}
+
+.navbar-group.right .btn:not(.logout):hover {
+    background-color: #edf2f7;
+}
+
+/* Logout Button (Right) */
+.navbar-item.logout .btn {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.navbar-item.logout .btn:hover {
+    background-color: #c53030;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .navbar-group.center {
+        position: static;
+        transform: none;
+        order: 1;
+        width: 100%;
+        justify-content: center;
+        margin: 0.5rem 0;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .navbar-group.right {
+        order: 2;
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.75rem;
+    }
+
+    .navbar-group {
+        gap: 0.5rem;
+    }
+
+    .navbar-item .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}

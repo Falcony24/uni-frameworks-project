@@ -1,4 +1,3 @@
-const {verify} = require("jsonwebtoken");
 const Users = require("../models/Users");
 const Players = require("../models/Players");
 const Upgrades = require("../models/Upgrades");
@@ -11,31 +10,20 @@ exports.tokenVerify = async (req, res) => {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.status(401).json({
-            message: "Access denied. No token provided.",
-            code: "MISSING_TOKEN"
-        });
+        return res.status(401).json({ message: "Access denied, no token provided" });
     }
 
     try {
-        const decoded = jwt2.verify(token, process.env.SECRET_KEY, {
-            algorithms: ['HS256']
-        });
+        const decoded = jwt2.verify(token, process.env.SECRET_KEY, { algorithms: ['HS256'] });
 
         req.user = decoded;
 
         const now = Math.floor(Date.now() / 1000);
         if (decoded.exp && decoded.exp < now) {
-            return res.status(401).json({
-                message: "Token expired",
-                code: "TOKEN_EXPIRED"
-            });
+            return res.status(401).json({ message: "Token expired" });
         }
 
-        return res.status(200).json({
-            verified: true,
-            user: { id: decoded.id, role: decoded.role }
-        });
+        return res.status(201)
 
     } catch (err) {
         let status = 403;

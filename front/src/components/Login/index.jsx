@@ -34,6 +34,7 @@ export default function Index() {
             toast.success("Signing successful", { toastId: toastId });
             navigate("/profile");
         } catch (error){
+            console.log(error)
             toast.error(error.message, { toastId: toastId });
         }
     }

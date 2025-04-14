@@ -5,18 +5,56 @@ const Upgrades = require("../models/Upgrades");
 const jwt = require("../util/tokenJW");
 const bcrypt = require("bcrypt");
 const { usersSchema } = require("../shared/schemas/usersSchema");
+const jwt2 = require('jsonwebtoken');
 
-exports.tokenVerify = (req, res) => {
-    const token = req.cookies.token
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+exports.tokenVerify = async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json({
+            message: "Access denied. No token provided.",
+            code: "MISSING_TOKEN"
+        });
+    }
 
     try {
-        verify(token, process.env.SECRET_KEY);
-        res.status(204).send();
+        const decoded = jwt2.verify(token, process.env.SECRET_KEY, {
+            algorithms: ['HS256']
+        });
+
+        req.user = decoded;
+
+        const now = Math.floor(Date.now() / 1000);
+        if (decoded.exp && decoded.exp < now) {
+            return res.status(401).json({
+                message: "Token expired",
+                code: "TOKEN_EXPIRED"
+            });
+        }
+
+        return res.status(200).json({
+            verified: true,
+            user: { id: decoded.id, role: decoded.role }
+        });
+
     } catch (err) {
-        res.status(403).json({ message: "Forbidden" })
+        let status = 403;
+        let message = "Forbidden";
+        let code = "INVALID_TOKEN";
+
+        if (err instanceof jwt2.TokenExpiredError) {
+            status = 401;
+            message = "Token expired";
+            code = "TOKEN_EXPIRED";
+        } else if (err instanceof jwt2.JsonWebTokenError) {
+            status = 400;
+            message = "Invalid token";
+            code = "MALFORMED_TOKEN";
+        }
+
+        return res.status(status).json({ message, code });
     }
-}
+};
 
 exports.signUp = async (req, res) => {
     try {
@@ -64,6 +102,7 @@ exports.signUp = async (req, res) => {
         if (error.code === 11000) {
             return res.status(400).json({ message: "Email or username already in use" });
         }
+        console.log(error)
         res.status(500).json({ error: error.message });
     }
 }

@@ -1,6 +1,6 @@
-import { z } from "zod";
+const z = require ("zod");
 
-export const usersSchema = z.object({
+exports.usersSchema = z.object({
     username: z
         .string()
         .min(4, "Username must be at least 4 characters"),

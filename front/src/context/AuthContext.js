@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const verifyToken = async () => {
         const isAuthenticated = await authenticateUser();
+        console.log(isAuthenticated)
         setUser(isAuthenticated);
         setLoading(false);
     };

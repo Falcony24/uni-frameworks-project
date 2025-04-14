@@ -5,37 +5,40 @@ import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import ProfileBox from "./ProfileBox";
 import {usePlayer} from "../../context/PlayerContext";
-import {Card} from "react-bootstrap";
+import {Card, Spinner} from "react-bootstrap";
 import { upgradeImages } from "../constants"
 import {useUpgrades} from "../../context/UpgradesContext";
 
 export async function fetchAndCacheProfileData() {
-    const userResponse = await fetchUserData("users");
-    const customerResponse = await fetchUserData("customers");
+    const [userResponse, customerResponse] = await Promise.all([
+        fetchUserData("users"),
+        fetchUserData("customers")
+    ]);
 
     return {
-        user: userResponse ?? null,
-        customer: customerResponse ?? null,
+        user: userResponse || null,
+        customer: customerResponse || null,
     };
 }
 
 export default function Index() {
     const { logout } = useAuth();
     const [profile, setProfile] = useState({ user: null, customer: null });
+    const [loading, setLoading] = useState(true);
     const { player } = usePlayer();
-    const toastId = "auth-profile"
+    const toastId = "auth-profile";
     const { upgrades, loading: upgradesLoading } = useUpgrades();
-    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
-        if (upgradesLoading) return;
-
         const loadProfileData = async () => {
             try {
+                setLoading(true);
                 const data = await fetchAndCacheProfileData();
-                setProfile(prev => ({ ...prev, ...data }));
+                setProfile(data);
             } catch (error) {
-                toast.warning("Something went wrong, refresh this page", { toastId: "a" });
+                toast.warning("Failed to load profile data", { toastId });
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -47,9 +50,19 @@ export default function Index() {
         try {
             await logout();
         } catch (error) {
-            toast.error("Something went wrong, refresh this page", { toastId: toastId });
+            toast.error("Logout failed", { toastId });
         }
     };
+
+    if (loading || upgradesLoading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <Spinner animation="border" variant="primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
 
     return (
         <div className="container">

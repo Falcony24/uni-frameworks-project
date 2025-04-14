@@ -4,10 +4,15 @@ const URL = 'http://localhost:3000'
 
 export async function authenticateUser() {
     try {
-        const res = await axios.get(`${URL}/auth/`, { withCredentials: true });
-        return res.status === 204;
+        const response = await axios.get(`${URL}/auth/`, {
+            withCredentials: true
+        });
+
+        return response.status === 200 || response.status === 204;
+
     } catch (error) {
-        return false
+        console.error('Authentication check failed:', error);
+        return false;
     }
 }
 

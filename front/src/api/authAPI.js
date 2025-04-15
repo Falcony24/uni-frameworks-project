@@ -8,7 +8,7 @@ export async function authenticateUser() {
             withCredentials: true
         });
 
-        return response.status === 200 || response.status === 204;
+        return response.data.role;
 
     } catch (error) {
         console.error('Authentication check failed:', error);

@@ -23,9 +23,10 @@ exports.tokenVerify = async (req, res) => {
             return res.status(401).json({ message: "Token expired" });
         }
 
-        return res.status(201)
+        return res.status(200).json({ role: decoded.role });
 
     } catch (err) {
+        console.log(err)
         let status = 403;
         let message = "Forbidden";
         let code = "INVALID_TOKEN";

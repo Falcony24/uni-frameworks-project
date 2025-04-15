@@ -1,0 +1,14 @@
+/* admin.css */
+.admin-index {
+    padding: 20px;
+}
+
+.admin-welcome {
+    text-align: center;
+    padding: 40px 0;
+}
+
+/* Button group styling */
+.btn-group-vertical {
+    gap: 10px;
+}

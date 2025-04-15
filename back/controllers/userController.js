@@ -5,6 +5,50 @@ const {hash, compare} = require("bcrypt");
 
 require('dotenv').config()
 
+exports.getAllUsers = async (req, res) => {
+    try {
+        // Verify admin role
+        if (req.user.role !== "ADMIN") {
+            return res.status(403).json({
+                message: "Forbidden: Admin access required"
+            });
+        }
+
+        // Get all users with their related data
+        const users = await Users.find()
+            .select("-password") // Exclude sensitive data
+            .lean(); // Convert to plain JS object
+
+        // Get all players data in one query
+        const players = await Players.find({
+            user_id: { $in: users.map(u => u._id) }
+        });
+
+
+        // Combine the data
+        const response = users.map(user => ({
+            userId: user._id,
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                created_at: user.created_at
+            },
+            player: players.find(p => p.user_id.toString() === user._id.toString()) || null,
+        }));
+
+        res.status(200).json(response);
+
+    } catch (error) {
+        console.error("Admin Get Users Error:", error);
+        res.status(500).json({
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
 exports.profile = async (req, res) => {
     try {
         const user_id = req.params.id || req.user._id;

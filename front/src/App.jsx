@@ -11,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 import "./App.css"
 import "./login_register.css"
 import "./toast.css"
+import AdminRoute from "./components/auth/AdminRoute";
+import Admin from "./components/Admin";
 
 function App() {
     return (
@@ -43,6 +45,12 @@ function App() {
                         <PrivateRoute>
                             <Profile />
                         </PrivateRoute>
+                    }/>
+
+                    <Route path="/admin" element={
+                        <AdminRoute>
+                            <Admin/>
+                        </AdminRoute>
                     }/>
 
                     <Route path="*" element={<NotFound />} />

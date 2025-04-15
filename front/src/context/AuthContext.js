@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {authenticateUser, signOut} from "../api/authAPI";
+import { authenticateUser, signOut } from "../api/authAPI";
 import { Spinner, Container } from "react-bootstrap";
-import {toast} from "react-toastify";
-import {clearAllCookies} from "../utilCookie";
+import { toast } from "react-toastify";
+import { clearAllCookies } from "../utilCookie";
 
 const AuthContext = createContext(undefined);
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const verifyToken = async () => {
         const isAuthenticated = await authenticateUser();
-        console.log(isAuthenticated)
+
         setUser(isAuthenticated);
         setLoading(false);
     };

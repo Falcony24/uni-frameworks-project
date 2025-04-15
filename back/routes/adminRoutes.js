@@ -1,5 +1,5 @@
 const express = require('express')
-const { profile, getProfileData, changeUserData, deleteData, deleteProfile
+const { profile, getProfileData, changeUserData, deleteData, deleteProfile, getAllUsers
 } = require('../controllers/userController')
 const { auth } = require("../middlewares/auth")
 
@@ -7,7 +7,7 @@ const router = express.Router()
 
 // /admins
 
-
+router.get("/", auth, getAllUsers)
 router.get('/:id', auth, profile)                   //ok
 router.get('/data/:type/:id', auth, getProfileData) //ok
 

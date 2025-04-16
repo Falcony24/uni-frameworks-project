@@ -51,12 +51,13 @@ export default function AdminUsers() {
                 <h2>Users Management</h2>
                 <div className="d-flex" style={{ width: '300px' }}>
                     <Form.Control
+                        className="admin-search"
                         type="text"
                         placeholder="Search users..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <Button variant="secondary" className="ms-2">
+                    <Button variant="outline-primary" className="ms-2">
                         <FaSearch />
                     </Button>
                 </div>
@@ -100,17 +101,15 @@ export default function AdminUsers() {
                                 </td>
                                 <td>{userData.user.email}</td>
                                 <td>
-                                    <Badge bg={userData.user.role === 'ADMIN' ? 'danger' : 'primary'}>
+                                    <Badge className={userData.user.role === 'ADMIN' ? 'badge-admin' : 'badge-user'}>
                                         {userData.user.role}
                                     </Badge>
                                 </td>
                                 <td>{new Date(userData.user.created_at).toLocaleDateString()}</td>
                                 <td>
-                                    {userData.player?.ban_status ? (
-                                        <Badge bg="danger">Banned</Badge>
-                                    ) : (
-                                        <Badge bg="success">Active</Badge>
-                                    )}
+                                    <Badge className={userData.player?.ban_status ? 'badge-banned' : 'badge-active'}>
+                                        {userData.player?.ban_status ? 'Banned' : 'Active'}
+                                    </Badge>
                                 </td>
                                 <td onClick={(e) => e.stopPropagation()}>
                                     <Button

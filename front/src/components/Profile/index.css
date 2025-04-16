@@ -1,53 +1,354 @@
+
 .container {
+    background-color: #1a1a2e; /* Dark blue PCB background */
+    color: #4cc9f0; /* Electric blue text */
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+}
+
+/* Circuit board pattern overlay */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+            linear-gradient(90deg, rgba(76, 201, 240, 0.05) 1px, transparent 1px),
+            linear-gradient(rgba(76, 201, 240, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Card styles */
+.box {
+    background-color: #16213e; /* Darker blue */
+    border: 1px solid #4cc9f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4cc9f0, #f72585, #4cc9f0);
+    background-size: 200% 100%;
+    animation: electricFlow 3s linear infinite;
+}
+
+.box:hover {
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.6);
+    transform: translateY(-5px);
+}
+
+@keyframes electricFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.box h1, .box h3 {
+    color: #4cc9f0;
+    border-bottom: 1px solid #4cc9f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.box p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Button styles */
+.btn {
+    background-color: transparent;
+    border: 1px solid #4cc9f0;
+    color: #4cc9f0;
+    border-radius: 4px;
+    padding: 0.5rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.btn:hover {
+    background-color: rgba(76, 201, 240, 0.2);
+    color: white;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+}
+
+.btn:active, .btn:focus {
+    background-color: #4cc9f0;
+    color: #16213e;
+    box-shadow: 0 0 15px rgba(76, 201, 240, 0.8);
+}
+
+.btn-outline-primary {
+    border-color: #4cc9f0;
+    color: #4cc9f0;
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(76, 201, 240, 0.2);
+}
+
+.btn-outline-warning {
+    border-color: #f72585;
+    color: #f72585;
+}
+
+.btn-outline-warning:hover {
+    background-color: rgba(247, 37, 133, 0.2);
+}
+
+.btn-primary {
+    background-color: #4cc9f0;
+    color: #16213e;
+}
+
+.btn-primary:hover {
+    background-color: #3aa8d8;
+}
+
+.btn-warning {
+    background-color: #f72585;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e5177b;
+}
+
+/* Form styles */
+.form-control {
+    background-color: #0f3460;
+    border: 1px solid #4cc9f0;
+    color: white;
+    font-family: 'Courier New', monospace;
+}
+
+.form-control:focus {
+    background-color: #0f3460;
+    color: white;
+    border-color: #f72585;
+    box-shadow: 0 0 0 0.25rem rgba(247, 37, 133, 0.25);
+}
+
+.form-label {
+    color: #4cc9f0;
+    font-weight: bold;
+}
+
+/* Upgrades grid */
+.upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.upgrade-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+    padding: 0.5rem;
+    border: 1px solid #4cc9f0;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
-.error-text {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 10px;
+.upgrade-item:hover {
+    background-color: rgba(76, 201, 240, 0.1);
+    transform: scale(1.05);
 }
 
-.top-boxes {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
+.upgrade-image {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
 }
 
-.bottom-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+.upgrade-item small {
+    color: #4cc9f0;
+    text-align: center;
+    font-size: 0.8rem;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
+/* Logout button */
 .logout-button {
-    margin-top: 20px;
-    background-color: #dc3545;
+    background-color: transparent;
+    border: 1px solid #f72585;
+    color: #f72585;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 2rem auto 0;
+    position: relative;
 }
 
 .logout-button:hover {
-    background-color: #a71d2a;
+    background-color: rgba(247, 37, 133, 0.2);
+    color: white;
+    box-shadow: 0 0 15px rgba(247, 37, 133, 0.5);
 }
+
+.logout-button:active {
+    background-color: #f72585;
+    color: white;
+}
+
+/* Layout */
+.bottom-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.section {
+    margin: 1rem 0;
+}
+
+/* Spinner */
+.spinner-border {
+    color: #4cc9f0;
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.25em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .bottom-boxes {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Add these to your existing CSS */
+
+/* Darken the content areas */
+.box {
+    background-color: #0f172a; /* Darker than the container */
+    border: 1px solid #4cc9f0;
+    box-shadow: 0 0 15px rgba(76, 201, 240, 0.2);
+}
+
+/* Style for the game stats section */
+.game-stats {
+    background-color: #0f172a;
+    border: 1px dashed #4cc9f0;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.game-stats p {
+    margin: 0.5rem 0;
+    padding: 0.3rem 0.5rem;
+    background-color: rgba(15, 23, 42, 0.7);
+    border-left: 3px solid #4cc9f0;
+}
+
+/* Style for the items/unlocks section */
+.unlocks-section {
+    background-color: #0f172a;
+    border: 1px dashed #f72585;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
+
+/* Upgrade items styling */
+.upgrade-item {
+    background-color: #1e293b;
+    border: 1px solid #4cc9f0 !important;
+    padding: 0.8rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.upgrade-item:hover {
+    background-color: #334155;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+}
+
+/* Form inputs darkening */
+.form-control {
+    background-color: #1e293b;
+    border: 1px solid #4cc9f0;
+    color: #e2e8f0;
+}
+
+.form-control:focus {
+    background-color: #1e293b;
+    border-color: #f72585;
+}
+
+/* Section headers */
+.box h3 {
+    color: #4cc9f0;
+    background-color: rgba(15, 23, 42, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-block;
+    border: none;
+}
+
+/* Add subtle LED indicators */
+.led-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #f72585;
+    margin-right: 8px;
+    box-shadow: 0 0 5px #f72585;
+    animation: led-pulse 2s infinite;
+}
+
+@keyframes led-pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* Apply to headers */
+.box h3::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4cc9f0;
+    margin-right: 8px;
+    box-shadow: 0 0 5px #4cc9f0;
+}
+

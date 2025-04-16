@@ -16,6 +16,11 @@ export default function Index() {
     const [currency, setCurrency] = useState(player.currency);
     const { upgrades, loading: upgradesLoading } = useUpgrades();
     const [clicks, setClicks] = useState([player.clicks]);
+    const [showCritical, setShowCritical] = useState(false);
+    const [clickEffect, setClickEffect] = useState(false);
+    const [floatingValues, setFloatingValues] = useState([]);
+    const [currencyBounce, setCurrencyBounce] = useState(false);
+
     const buyUpgrade = (upgrade) => {
         const toastId = `upgrade-${upgrade._id}`;
         const existingUpgrade = player.upgrades.find(u => u.upgrade_id === upgrade._id);
@@ -65,7 +70,7 @@ export default function Index() {
             return 1;
         }
 
-        const upgrade = upgrades.find(u => u.effect === "CLICK_MULTIPLIER");
+        const upgrade = upgrades.find(u => u.effect === "CLICK_POWER");
         if (!upgrade) return 1;
 
         const playerUpgrade = player.upgrades.find(u => u.upgrade_id === upgrade._id);
@@ -79,7 +84,7 @@ export default function Index() {
             return 1;
         }
 
-        const upgrade = upgrades.find(u => u.effect === "CLICK_CRIT");
+        const upgrade = upgrades.find(u => u.effect === "CLICK_CRIT_CHANCE");
         if (!upgrade) return 1;
         const playerUpgrade = player.upgrades.find(u => u.upgrade_id === upgrade._id);
 
@@ -89,12 +94,37 @@ export default function Index() {
         else return 1;
     }
 
-    const handleClick = () => {
-        const crit = calculateCrit(upgrades, player)
-        const click_power = calculateClickPower(upgrades, player);
-        const newCurrency = currency + click_power * crit;
-        const clicks = player.clicks + 1
 
+    const handleClick = (e) => {
+        const crit = calculateCrit(upgrades, player);
+        const click_power = calculateClickPower(upgrades, player);
+        const value = click_power * crit;
+        const newCurrency = currency + value;
+        const clicks = player.clicks + 1;
+
+        // Show click effect
+        setClickEffect(true);
+        setTimeout(() => setClickEffect(false), 400);
+
+        // Add floating value
+        const rect = e.target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        setFloatingValues(prev => [
+            ...prev,
+            {
+                id: Date.now(),
+                value: `+${value}`,
+                x: x,
+                y: y,
+                critical: crit > 1
+            }
+        ]);
+        setCurrencyBounce(true);
+        setTimeout(() => setCurrencyBounce(false), 500);
+
+        // Update state
         setCurrency(newCurrency);
         setPlayer(prev => ({
             ...prev,
@@ -102,7 +132,14 @@ export default function Index() {
             clicks: clicks
         }));
     };
-
+    useEffect(() => {
+        if (floatingValues.length > 0) {
+            const timer = setTimeout(() => {
+                setFloatingValues(prev => prev.slice(1));
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [floatingValues]);
 
     const saveGame = useCallback(async () => {
         const toastId = "save-progress";
@@ -152,15 +189,34 @@ export default function Index() {
     }, [saveGame, playerLoading, upgradesLoading, userLoading]);
 
     return (
-        <div style={{ textAlign: "center" }}>
-            <h2>Elektrony: {currency}</h2>
-            <img
-                src={at32}
-                alt="Click me"
-                onClick={handleClick}
-                style={{ cursor: "pointer", width: "200px", height: "200px" }}
-            />
-            <div>
+        <div className="clicker-container">
+            <h2>Elektrony: <span className={`currency-display ${currencyBounce ? 'currency-update' : ''}`}>
+            {currency}
+        </span>⚡</h2>
+
+            <div className="clicker-image-container">
+                <img
+                    src={at32}
+                    alt="Click me"
+                    className="clicker-image"
+                    onClick={handleClick}
+                />
+                {clickEffect && <div className="click-effect"></div>}
+                {floatingValues.map((fv) => (
+                    <div
+                        key={fv.id}
+                        className={`floating-value ${fv.critical ? 'critical' : ''}`}
+                        style={{
+                            left: `${fv.x}px`,
+                            top: `${fv.y}px`
+                        }}
+                    >
+                        {fv.value}
+                    </div>
+                ))}
+            </div>
+
+            <div className="upgrades-grid">
                 {upgrades.map((upgrade) => (
                     <UpgradesBox
                         key={upgrade._id}
@@ -171,6 +227,9 @@ export default function Index() {
                         onBuy={buyUpgrade}
                     />
                 ))}
+            </div>
+
+            <div className="items-container">
                 <ItemsBox/>
             </div>
         </div>

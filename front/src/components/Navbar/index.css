@@ -1,117 +1,145 @@
-/* Navbar Container */
+/* index.css */
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin: 1rem auto;
-    max-width: 1200px;
+    background-color: #1a1a2e; /* Dark blue PCB background */
+    border-bottom: 3px solid #4cc9f0; /* Bright blue circuit line */
+    box-shadow: 0 0 15px rgba(76, 201, 240, 0.5); /* Electric glow */
     position: relative;
+    overflow: hidden;
 }
 
-/* Navbar Groups */
+/* Circuit board pattern overlay */
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+            linear-gradient(90deg, rgba(76, 201, 240, 0.05) 1px, transparent 1px),
+            linear-gradient(rgba(76, 201, 240, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
 .navbar-group {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-/* Center Group - For Game/Profile */
-.navbar-group.center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+.center {
+    flex-grow: 1;
+    justify-content: center;
 }
 
-/* Right Group - For Auth/Logout */
-.navbar-group.right {
-    margin-left: auto;
+.right {
+    justify-content: flex-end;
 }
 
-/* Navbar Items */
 .navbar-item {
     text-decoration: none;
 }
 
-/* Base Button Styles */
 .navbar-item .btn {
-    padding: 0.5rem 1.25rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
+    position: relative;
+    background-color: #16213e; /* Darker blue */
+    color: #4cc9f0; /* Electric blue text */
+    border: 1px solid #4cc9f0;
+    border-radius: 4px;
+    padding: 0.5rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(76, 201, 240, 0.3);
 }
 
-/* Main Navigation Buttons (Center) */
-.navbar-group.center .btn {
-    background-color: #ebf8ff;
-    color: #2b6cb0;
-    border: 1px solid #bee3f8;
+/* Button pin/connector dots */
+.navbar-item .btn::before,
+.navbar-item .btn::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #f72585; /* LED pink */
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.navbar-group.center .btn:hover {
-    background-color: #bee3f8;
+.navbar-item .btn::before {
+    top: -4px;
+    left: -4px;
 }
 
-/* Auth Buttons (Right) */
-.navbar-group.right .btn:not(.logout) {
-    background-color: #f8fafc;
-    color: #4a5568;
-    border: 1px solid #e2e8f0;
+.navbar-item .btn::after {
+    bottom: -4px;
+    right: -4px;
 }
 
-.navbar-group.right .btn:not(.logout):hover {
-    background-color: #edf2f7;
+.navbar-item:hover .btn {
+    background-color: #0f3460;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(76, 201, 240, 0.7);
+    transform: translateY(-2px);
 }
 
-/* Logout Button (Right) */
-.navbar-item.logout .btn {
-    background-color: #e53e3e;
-    color: white;
+.navbar-item:hover .btn::before,
+.navbar-item:hover .btn::after {
+    opacity: 1;
 }
 
-.navbar-item.logout .btn:hover {
-    background-color: #c53030;
+/* Active state - like a lit LED */
+.navbar-item .btn:active,
+.navbar-item .btn:focus {
+    background-color: #4cc9f0;
+    color: #16213e;
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.9);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .navbar-group.center {
-        position: static;
-        transform: none;
-        order: 1;
+/* Logout button special style */
+.logout .btn {
+    background-color: transparent;
+    border-color: #f72585; /* Warning pink */
+    color: #f72585;
+}
+
+.logout .btn:hover {
+    background-color: rgba(247, 37, 133, 0.2);
+}
+
+/* Electric pulse animation for active items */
+@keyframes electricPulse {
+    0% { box-shadow: 0 0 5px rgba(76, 201, 240, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(76, 201, 240, 0.9); }
+    100% { box-shadow: 0 0 5px rgba(76, 201, 240, 0.3); }
+}
+
+.navbar-item.active .btn {
+    animation: electricPulse 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .navbar-group {
         width: 100%;
         justify-content: center;
         margin: 0.5rem 0;
     }
 
-    .navbar {
-        flex-wrap: wrap;
-    }
-
-    .navbar-group.right {
-        order: 2;
-        width: 100%;
-        justify-content: flex-end;
-        margin-top: 0.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .navbar {
-        padding: 0.75rem;
-    }
-
-    .navbar-group {
-        gap: 0.5rem;
-    }
-
-    .navbar-item .btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
+    .right {
+        justify-content: center;
     }
 }

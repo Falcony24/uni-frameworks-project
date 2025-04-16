@@ -20,7 +20,7 @@ export async function saveProgress(player) {
     }
 }
 
-export async function updateUpgrade(upgradeData) {
+export async function createUpgrade(upgradeData) {
     try {
         const response = await axios.post(`${URL}/upgrades`, upgradeData, {withCredentials: true });
         return response.data;
@@ -29,7 +29,7 @@ export async function updateUpgrade(upgradeData) {
     }
 }
 
-export async function createUpgrade(id, upgradeData) {
+export async function updateUpgrade(id, upgradeData) {
     try {
         const response = await axios.put(`${URL}/upgrades/${id}`, upgradeData, {withCredentials: true });
         return response.data;

@@ -4,7 +4,7 @@ const upgradeSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     effect: {
         type: String,
-        enum: ['CLICK_MULTIPLIER', 'AUTO_CLICK', 'CRIT_CHANCE'],
+        enum: ['CLICK_POWER', 'AUTO_CLICK', 'CLICK_CRIT_CHANCE'],
         required: true
     },
     base_value: { type: Number, required: true, min: 1 },

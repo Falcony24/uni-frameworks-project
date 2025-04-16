@@ -30,19 +30,19 @@ export default function AdminIndex() {
                     <Card>
                         <Card.Body className="d-flex gap-3">
                             <Button
-                                variant={activeComponent === 'dashboard' ? 'primary' : 'outline-primary'}
+                                className={`admin-nav-btn ${activeComponent === 'dashboard' ? 'active' : ''}`}
                                 onClick={() => setActiveComponent('dashboard')}
                             >
                                 Dashboard
                             </Button>
                             <Button
-                                variant={activeComponent === 'upgrades' ? 'primary' : 'outline-primary'}
+                                className={`admin-nav-btn ${activeComponent === 'upgrades' ? 'active' : ''}`}
                                 onClick={() => setActiveComponent('upgrades')}
                             >
                                 Manage Upgrades
                             </Button>
                             <Button
-                                variant={activeComponent === 'users' ? 'primary' : 'outline-primary'}
+                                className={`admin-nav-btn ${activeComponent === 'users' ? 'active' : ''}`}
                                 onClick={() => setActiveComponent('users')}
                             >
                                 Manage Users

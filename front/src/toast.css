@@ -1,41 +1,148 @@
-/* Custom Toast Styles */
+/* Microcontroller Toast Container */
 .Toastify__toast-container {
     width: fit-content;
+    max-width: 450px;
+    font-family: 'Courier New', monospace !important;
 }
 
+/* Base Toast Style */
 .Toastify__toast {
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    padding: 1rem 1.5rem !important;
-    font-family: inherit !important;
+    border-radius: 6px !important;
+    box-shadow:
+            0 0 15px rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(88, 166, 255, 0.3) !important;
+    padding: 1rem 1.25rem !important;
     min-height: auto !important;
+    background-color: #161b22 !important;
+    border-left: 4px solid #58a6ff !important;
+    color: #c9d1d9 !important;
+    position: relative;
+    overflow: hidden;
 }
 
 .Toastify__toast-body {
     margin: 0 !important;
     padding: 0 !important;
+    display: flex;
+    align-items: center;
 }
 
-/* Success Toast */
+/* Toast Status Indicators */
 .Toastify__toast--success {
-    background: #38a169 !important;
-    color: white !important;
+    border-left-color: #2ea043 !important;
+    background-color: #161b22 !important;
 }
 
-/* Error Toast */
 .Toastify__toast--error {
-    background: #e53e3e !important;
-    color: white !important;
+    border-left-color: #f85149 !important;
+    background-color: #161b22 !important;
 }
 
-/* Info Toast */
 .Toastify__toast--info {
-    background: #3182ce !important;
-    color: white !important;
+    border-left-color: #58a6ff !important;
+    background-color: #161b22 !important;
 }
 
-/* Warning Toast */
 .Toastify__toast--warning {
-    background: #dd6b20 !important;
-    color: white !important;
+    border-left-color: #d29922 !important;
+    background-color: #161b22 !important;
+}
+
+/* Circuit Board Pattern Effect */
+.Toastify__toast::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+            linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px);
+    background-size: 15px 15px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Progress Bar */
+.Toastify__progress-bar {
+    height: 3px !important;
+    background: rgba(88, 166, 255, 0.4) !important;
+}
+
+.Toastify__progress-bar--success {
+    background: rgba(46, 160, 67, 0.4) !important;
+}
+
+.Toastify__progress-bar--error {
+    background: rgba(248, 81, 73, 0.4) !important;
+}
+
+.Toastify__progress-bar--warning {
+    background: rgba(210, 153, 34, 0.4) !important;
+}
+
+/* Close Button */
+.Toastify__close-button {
+    color: #8b949e !important;
+    opacity: 1 !important;
+    align-self: flex-start;
+    transition: all 0.2s ease;
+}
+
+.Toastify__close-button:hover {
+    color: #58a6ff !important;
+    transform: scale(1.1);
+}
+
+/* Icons */
+.toast-icon {
+    margin-right: 12px;
+    font-size: 1.4rem;
+    min-width: 24px;
+}
+
+.toast-icon--success {
+    color: #2ea043;
+}
+
+.toast-icon--error {
+    color: #f85149;
+}
+
+.toast-icon--info {
+    color: #58a6ff;
+}
+
+.toast-icon--warning {
+    color: #d29922;
+}
+
+/* Animation */
+@keyframes circuitPulse {
+    0% { box-shadow: 0 0 5px rgba(88, 166, 255, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(88, 166, 255, 0.7); }
+    100% { box-shadow: 0 0 5px rgba(88, 166, 255, 0.3); }
+}
+
+.Toastify__toast:hover {
+    animation: circuitPulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .Toastify__toast-container {
+        width: 90vw;
+        left: 5vw;
+        right: 5vw;
+    }
+
+    .Toastify__toast {
+        padding: 0.8rem 1rem !important;
+    }
+
+    .toast-icon {
+        font-size: 1.2rem;
+        margin-right: 8px;
+    }
 }

@@ -30,9 +30,9 @@ const UpgradesBox = ({ playerUpgrades, upgrade, image, currency, onBuy }) => {
             {isHovered && (
                 <div className="upgrade-tooltip">
                     <h4>{upgrade.name}</h4>
-                    <div>Level: {currentLevel}</div>
+                    <p>Level: {currentLevel}</p>
                     <p>Next Cost: {nextLevelCost}⚡</p>
-                    <p>Description: {upgrade.effect}</p>
+                    {/*<p>Description: {upgrade.effect}</p>*/}
                     <p>Current level: {currentValue}x</p>
                 </div>
             )}

@@ -66,19 +66,23 @@ exports.signUp = async (req, res) => {
             password: password,
         });
 
-        const defaultUpgrade = await Upgrades.findOne({ effect: "CLICK_MULTIPLIER" });
+        const defaultUpgrade = await Upgrades.findOne({ effect: "CLICK_POWER" });
         const newPlayer = new Players({
-            user_id: newUser.id,
+            user_id: newUser._id,
             upgrades: [
                 {
-                    upgrade_id: defaultUpgrade._id,
+                    upgrade_id: defaultUpgrade.id,
                     level: 1,
                 }
             ]
         });
 
+        console.log("a")
         await newUser.save();
+        console.log("b")
+
         await newPlayer.save();
+        console.log("c")
 
         res.cookie("token", await jwt.generateJWT(newUser), {
             httpOnly: true,

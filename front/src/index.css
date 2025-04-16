@@ -1,13 +1,111 @@
-body {
+/* Full-page dark theme with visible text */
+body, html {
+  background-color: #0d1117 !important; /* Dark background for entire page */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  color: #c9d1d9; /* Light gray text for readability */
+  font-family: 'Courier New', monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Container adjustments */
+.container {
+  background-color: #0d1117; /* Match body background */
+  padding: 2rem;
+  min-height: 100vh;
+  border: none;
+}
+
+/* Remove any remaining white spaces */
+.container::before {
+  display: none; /* Remove grid overlay if causing issues */
+}
+
+/* Enhanced card styling */
+.box {
+  background-color: #161b22; /* Slightly lighter than container */
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(1, 4, 9, 0.5);
+}
+
+/* Text visibility enhancements */
+.box h1, .box h3 {
+  color: #58a6ff; /* Brighter blue for headers */
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 0.5rem;
+}
+
+.box p {
+  color: #c9d1d9; /* Light gray for body text */
+  margin: 0.75rem 0;
+}
+
+/* Button visibility */
+.btn {
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+}
+
+.btn:hover {
+  background-color: #30363d;
+  border-color: #58a6ff;
+  color: #ffffff;
+}
+
+/* Form elements */
+.form-control {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+}
+
+.form-control:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.4);
+}
+
+/* Upgrade items */
+.upgrade-item {
+  background-color: #21262d;
+  border: 1px solid #30363d !important;
+  color: #c9d1d9;
+}
+
+.upgrade-item:hover {
+  background-color: #30363d;
+  border-color: #58a6ff !important;
+}
+
+/* LED indicators */
+.led-indicator {
+  background-color: #58a6ff;
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.6);
+}
+
+/* Game stats section */
+.game-stats {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+}
+
+/* Logout button */
+.logout-button {
+  background-color: #21262d;
+  border: 1px solid #f85149;
+  color: #f85149;
+}
+
+.logout-button:hover {
+  background-color: rgba(248, 81, 73, 0.1);
+  color: #ff8a8a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
 }

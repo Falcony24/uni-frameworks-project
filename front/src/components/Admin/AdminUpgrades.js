@@ -34,9 +34,9 @@ const UpgradeForm = ({
                         required
                     >
                         <option value="">Select Effect</option>
-                        <option value="CLICK_MULTIPLIER">Click Multiplier</option>
+                        <option value="CLICK_POWER">Click power</option>
                         <option value="AUTO_CLICK">Auto Click</option>
-                        <option value="CURRENCY_BOOST">Currency Boost</option>
+                        <option value="CLICK_CRIT_CHANCE">Click crit chance</option>
                     </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -171,6 +171,7 @@ export default function AdminUpgrades() {
             <div className="d-flex justify-content-between mb-4">
                 <h2>Upgrades Management</h2>
                 <Button
+                    className="admin-nav-btn"
                     onClick={() => {
                         setCurrentUpgrade(null);
                         setFormData({
@@ -181,7 +182,6 @@ export default function AdminUpgrades() {
                         });
                         setShowModal(true);
                     }}
-                    aria-label="Add new upgrade"
                 >
                     Add New Upgrade
                 </Button>

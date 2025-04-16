@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Card, Button, Form, Row, Col, Collapse } from "react-bootstrap";
 import { changeUsername, changePassword } from "../../api/userAPI";
 import { toast } from "react-toastify";
-import "./ProfileBox.css";
 
 export default function ProfileBox({ user, setProfile }) {
     const [newUsername, setNewUsername] = useState("");
@@ -57,7 +56,8 @@ export default function ProfileBox({ user, setProfile }) {
     return (
         <Card className="box">
             <h3>Account Settings</h3>
-            <p><strong>Username:</strong> { user?.username }</p>
+            <div className="game-stats"><p><strong>Username:</strong> { user?.username }</p></div>
+
 
             { !showPasswordForm &&
                 <div className="section">

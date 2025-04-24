@@ -11,7 +11,6 @@ export async function authenticateUser() {
         return response.data.role;
 
     } catch (error) {
-        console.error('Authentication check failed:', error);
         return false;
     }
 }

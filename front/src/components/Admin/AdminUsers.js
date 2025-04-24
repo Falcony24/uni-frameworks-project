@@ -47,8 +47,8 @@ export default function AdminUsers() {
 
     return (
         <div className="p-4">
-            <div className="d-flex justify-content-between mb-4">
-                <h2>Users Management</h2>
+            <div className="d-flex justify-content-between mb-4 admin-welcome">
+                <h3>Users Management</h3>
                 <div className="d-flex" style={{ width: '300px' }}>
                     <Form.Control
                         className="admin-search"

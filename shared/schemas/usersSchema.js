@@ -1,6 +1,6 @@
-import { z } from "zod";
+const { z } = require("zod");
 
-export const usersSchema = z.object({
+const usersSchema = z.object({
     username: z
         .string()
         .trim()
@@ -26,7 +26,7 @@ export const usersSchema = z.object({
     updated_at: z.date().optional(),
 });
 
-export const usersLoginSchema = z.object({
+const usersLoginSchema = z.object({
     username: z
         .string()
         .trim()
@@ -38,3 +38,7 @@ export const usersLoginSchema = z.object({
         .min(1, "Password must not be empty"),
 });
 
+module.exports = {
+    usersSchema,
+    usersLoginSchema
+}

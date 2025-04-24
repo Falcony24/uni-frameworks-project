@@ -1,7 +1,7 @@
 const Users = require("../models/Users");
 const Upgrades = require("../models/Upgrades");
 const Players = require("../models/Players");
-const upgradesEnum = require("../shared/enums/UpgradesEnum");
+const upgradesEnum = require("../shared/enums/upgradesEnum");
 
 exports.initializeDatabase = async () => {
     for(const upgrade of upgradesEnum) {

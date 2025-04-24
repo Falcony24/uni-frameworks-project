@@ -168,8 +168,8 @@ export default function AdminUpgrades() {
 
     return (
         <div className="admin-upgrades">
-            <div className="d-flex justify-content-between mb-4">
-                <h2>Upgrades Management</h2>
+            <div className="d-flex justify-content-between mb-4 admin-welcome">
+                <h3>Upgrades Management</h3>
                 <Button
                     className="admin-nav-btn"
                     onClick={() => {
@@ -194,27 +194,29 @@ export default function AdminUpgrades() {
                     </Spinner>
                 </div>
             ) : (
-                <Table striped bordered hover responsive>
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Effect</th>
-                        <th>Base Value</th>
-                        <th>Base Cost</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {upgrades.map(upgrade => (
-                        <UpgradeRow
-                            key={upgrade._id}
-                            upgrade={upgrade}
-                            onEdit={handleEditClick}
-                            onDelete={handleDelete}
-                        />
-                    ))}
-                    </tbody>
-                </Table>
+                <div className="table-responsive">
+                    <Table striped bordered hover className="mt-3">
+                        <thead className="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Effect</th>
+                            <th>Base Value</th>
+                            <th>Base Cost</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {upgrades.map(upgrade => (
+                            <UpgradeRow
+                                key={upgrade._id}
+                                upgrade={upgrade}
+                                onEdit={handleEditClick}
+                                onDelete={handleDelete}
+                            />
+                        ))}
+                        </tbody>
+                    </Table>
+                </div>
             )}
 
             <UpgradeForm

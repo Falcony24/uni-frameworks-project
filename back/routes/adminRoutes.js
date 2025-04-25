@@ -1,5 +1,11 @@
 const express = require('express')
-const { profile, getProfileData, changeUserData, deleteData, deleteProfile, getAllUsers
+const {
+    profile,
+    getProfileData,
+    changeUserData,
+    deleteData,
+    deleteProfile,
+    getAllUsers
 } = require('../controllers/userController')
 const { auth } = require("../middlewares/auth")
 

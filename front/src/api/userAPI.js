@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = 'http://localhost:3000'
+const URL = process.env.REACT_APP_API_URL;
 
 export async function changeUsername(newUsername) {
     try {
@@ -19,22 +19,8 @@ export async function changePassword(currentPassword, newPassword) {
         }, { withCredentials: true });
         return res.data;
     } catch (error) {
-        if (error.response.status === 400)
-            throw error.response.data.message;
-    }
-}
-
-export async function fetchProfile() {
-    try {
-        const response = await axios.get(`${URL}/users/`, { withCredentials: true });
-
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        return null;
+        console.log(error);
+        throw error;
     }
 }
 
@@ -48,6 +34,6 @@ export async function fetchUserData(dataType){
             return null;
         }
     } catch (error) {
-        return null;
+        throw error;
     }
 }

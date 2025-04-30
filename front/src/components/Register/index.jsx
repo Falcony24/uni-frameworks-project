@@ -37,7 +37,7 @@ export default function Index() {
             toast.success("Signup successful", { toastId: toastId });
             setTimeout(() => navigate("/profile"));
         } catch (error) {
-            toast.error((error.message || "Signup failed"), { toastId: toastId });
+            toast.error((error.response.data.message || "Signup failed"), { toastId: toastId });
         }
     }
 
@@ -46,7 +46,6 @@ export default function Index() {
         <div className="box">
             <h2>Signup</h2>
             <Form onSubmit={handleSubmit}>
-                {/* email */}
                 <Form.Group controlId="formRegisterEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -66,7 +65,6 @@ export default function Index() {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                {/* username */}
                 <Form.Group controlId="formRegisterUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control

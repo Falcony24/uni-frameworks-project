@@ -13,11 +13,16 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const verifyToken = async () => {
-        const isAuthenticated = await authenticateUser();
-
-        setUser(isAuthenticated);
-        setLoading(false);
+        try {
+            const isAuthenticated = await authenticateUser();
+            setUser(isAuthenticated);
+        } catch (error) {
+            setUser(null);
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     useEffect(() => {
         verifyToken();

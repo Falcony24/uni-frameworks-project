@@ -6,13 +6,12 @@ import { toast } from "react-toastify";
 import ProfileBox from "./ProfileBox";
 import {usePlayer} from "../../context/PlayerContext";
 import {Card, Spinner} from "react-bootstrap";
-import { upgradeImages } from "../constants"
+import { upgradeImages } from "../../constants"
 import {useUpgrades} from "../../context/UpgradesContext";
 
 export async function fetchAndCacheProfileData() {
     const [userResponse, customerResponse] = await Promise.all([
         fetchUserData("users"),
-        fetchUserData("customers")
     ]);
 
     return {

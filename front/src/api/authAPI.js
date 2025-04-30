@@ -1,17 +1,13 @@
 import axios from "axios"
 
-const URL = 'http://localhost:3000'
+const URL = process.env.REACT_APP_API_URL;
 
 export async function authenticateUser() {
     try {
-        const response = await axios.get(`${URL}/auth/`, {
-            withCredentials: true
-        });
-
+        const response = await axios.get(`${URL}/auth/`, { withCredentials: true });
         return response.data.role;
-
     } catch (error) {
-        return false;
+        throw error;
     }
 }
 

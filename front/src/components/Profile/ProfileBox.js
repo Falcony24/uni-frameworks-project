@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Card, Button, Form, Row, Col, Collapse } from "react-bootstrap";
 import { changeUsername, changePassword } from "../../api/userAPI";
 import { toast } from "react-toastify";
+import { usernameSchema, passwordSchema } from "../../shared/schemas/usersSchema";
+const { z } = require("zod");
 
 export default function ProfileBox({ user, setProfile }) {
     const [newUsername, setNewUsername] = useState("");
@@ -15,6 +17,8 @@ export default function ProfileBox({ user, setProfile }) {
         if (!newUsername.trim()) return toast.error("Username cannot be empty");
 
         try {
+            usernameSchema.parse(newUsername);
+
             setLoading(true);
             await changeUsername(newUsername.trim());
             toast.success("Username changed!");
@@ -28,30 +32,41 @@ export default function ProfileBox({ user, setProfile }) {
                 }
             }));
 
-        } catch (err) {
-            toast.error(err.message);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                toast.error(error.errors[0].message);
+            } else {
+                toast.error(error.message);
+            }
         } finally {
             setLoading(false);
         }
     };
+
 
     const handleChangePassword = async () => {
-        if (!currentPassword || !newPassword) return toast.error("Please fill all fields");
+        if (!newPassword.trim()) return toast.error("Password cannot be empty");
 
         try {
+            passwordSchema.parse(newPassword);
+
             setLoading(true);
-            let a = await changePassword(currentPassword, newPassword);
-            console.log(a)
+            await changePassword(currentPassword, newPassword.trim());
             toast.success("Password changed!");
-            setCurrentPassword("");
             setNewPassword("");
             setShowPasswordForm(false);
-        } catch (err) {
-            toast.error(err);
+
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                toast.error(error.errors[0].message);
+            } else {
+                toast.error(error.response.data.message);
+            }
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <Card className="box">

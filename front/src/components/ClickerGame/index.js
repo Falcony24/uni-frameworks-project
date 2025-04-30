@@ -6,7 +6,7 @@ import {saveProgress} from "../../api/gameAPI";
 import {toast} from "react-toastify";
 import {useAuth} from "../../context/AuthContext";
 import "./index.css"
-import { upgradeImages } from "../constants"
+import { upgradeImages } from "../../constants"
 import UpgradesBox from "./UpgradesBox";
 import ItemsBox from "./ItemsBox";
 
@@ -15,8 +15,7 @@ export default function Index() {
     const { user, loading: userLoading } = useAuth();
     const [currency, setCurrency] = useState(player.currency);
     const { upgrades, loading: upgradesLoading } = useUpgrades();
-    const [clicks, setClicks] = useState([player.clicks]);
-    const [showCritical, setShowCritical] = useState(false);
+    const [clicks, setClicks] = useState(player.clicks);
     const [clickEffect, setClickEffect] = useState(false);
     const [floatingValues, setFloatingValues] = useState([]);
     const [currencyBounce, setCurrencyBounce] = useState(false);
@@ -88,7 +87,8 @@ export default function Index() {
         if (!upgrade) return 1;
         const playerUpgrade = player.upgrades.find(u => u.upgrade_id === upgrade._id);
 
-        const level = playerUpgrade?.lvl || 1;
+        const level = playerUpgrade?.lvl;
+        if (level === 0) return 1
 
         if(Math.random() * 100 <= level) return 2
         else return 1;
@@ -102,11 +102,9 @@ export default function Index() {
         const newCurrency = currency + value;
         const clicks = player.clicks + 1;
 
-        // Show click effect
         setClickEffect(true);
         setTimeout(() => setClickEffect(false), 400);
 
-        // Add floating value
         const rect = e.target.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -124,7 +122,6 @@ export default function Index() {
         setCurrencyBounce(true);
         setTimeout(() => setCurrencyBounce(false), 500);
 
-        // Update state
         setCurrency(newCurrency);
         setPlayer(prev => ({
             ...prev,
@@ -132,6 +129,7 @@ export default function Index() {
             clicks: clicks
         }));
     };
+
     useEffect(() => {
         if (floatingValues.length > 0) {
             const timer = setTimeout(() => {
@@ -222,7 +220,7 @@ export default function Index() {
                         key={upgrade._id}
                         playerUpgrades={player.upgrades}
                         upgrade={upgrade}
-                        image={upgradeImages[upgrade.name.toLowerCase().replace(/\s+/g, '_')]}
+                        image={upgradeImages[upgrade.name.toLowerCase().replace(/\s+/g, '_')] || upgradeImages["placeholder"]}
                         currency={currency}
                         onBuy={buyUpgrade}
                     />

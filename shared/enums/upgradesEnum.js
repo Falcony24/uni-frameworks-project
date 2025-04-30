@@ -10,12 +10,6 @@ const upgradesEnum = [
         effect: "CLICK_CRIT_CHANCE",
         base_value: 1,
         base_cost: 10
-    },
-    {
-        name: 'AAA',
-        effect: "AUTO_CLICK",
-        base_value: 1,
-        base_cost: 10
     }
 ]
 

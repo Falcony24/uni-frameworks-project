@@ -11,8 +11,8 @@ services:
 
   backend:
     build:
-      context: ../back
-      dockerfile: Dockerfile
+      context: ./back
+      dockerfile: ./Dockerfile
     container_name: backend
     working_dir: /app
     ports:
@@ -22,14 +22,14 @@ services:
     environment:
       - DB_URL=mongodb://mongo:27017/myapp
     volumes:
-      - ../back:/app
+      - ./back:/app
       - /app/node_modules
-      - ../shared:/app/shared
+      - ./shared:/app/shared
 
   frontend:
     build:
-      context: ../front
-      dockerfile: Dockerfile
+      context: ./front
+      dockerfile: ./Dockerfile
     container_name: frontend
     working_dir: /app
     ports:
@@ -37,9 +37,9 @@ services:
     depends_on:
       - backend
     volumes:
-      - ../front:/app
+      - ./front:/app
       - /app/node_modules
-      - ../shared:/app/shared
+      - ./shared:/app/src/shared
     command: npm run start
 
 volumes:

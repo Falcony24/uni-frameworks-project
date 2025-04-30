@@ -78,7 +78,7 @@ export default function AdminUsers() {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Joined</th>
-                            <th>Status</th>
+                            {/*<th>Status</th>*/}
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -106,11 +106,11 @@ export default function AdminUsers() {
                                     </Badge>
                                 </td>
                                 <td>{new Date(userData.user.created_at).toLocaleDateString()}</td>
-                                <td>
-                                    <Badge className={userData.player?.ban_status ? 'badge-banned' : 'badge-active'}>
-                                        {userData.player?.ban_status ? 'Banned' : 'Active'}
-                                    </Badge>
-                                </td>
+                                {/*<td>*/}
+                                {/*    <Badge className={userData.player?.ban_status ? 'badge-banned' : 'badge-active'}>*/}
+                                {/*        {userData.player?.ban_status ? 'Banned' : 'Active'}*/}
+                                {/*    </Badge>*/}
+                                {/*</td>*/}
                                 <td onClick={(e) => e.stopPropagation()}>
                                     <Button
                                         variant="danger"
@@ -129,7 +129,6 @@ export default function AdminUsers() {
                 </div>
             )}
 
-            {/* User Details Modal */}
             {selectedUser && (
                 <Modal show={showDetails} onHide={() => setShowDetails(false)} size="lg" centered>
                     <Modal.Header closeButton className="bg-light">
@@ -142,7 +141,6 @@ export default function AdminUsers() {
                     </Modal.Header>
                     <Modal.Body>
                         <Tabs defaultActiveKey="profile" className="mb-3">
-                            {/* Profile Tab */}
                             <Tab eventKey="profile" title="Profile">
                                 <div className="p-3">
                                     <div className="row">
@@ -160,21 +158,20 @@ export default function AdminUsers() {
                                                     {selectedUser.user.role}
                                                 </Badge>
                                             </p>
-                                            <p><strong>Joined:</strong> {new Date(selectedUser.user.created_at).toLocaleString()}</p>
-                                            <p>
-                                                <strong>Status:</strong> {' '}
-                                                {selectedUser.player?.ban_status ? (
-                                                    <Badge bg="danger">Banned</Badge>
-                                                ) : (
-                                                    <Badge bg="success">Active</Badge>
-                                                )}
-                                            </p>
+                                            <p><strong>Joined:</strong> {new Date(selectedUser.user.created_at).toLocaleDateString()}</p>
+                                            {/*<p>*/}
+                                            {/*    <strong>Status:</strong> {' '}*/}
+                                            {/*    {selectedUser.player?.ban_status ? (*/}
+                                            {/*        <Badge bg="danger">Banned</Badge>*/}
+                                            {/*    ) : (*/}
+                                            {/*        <Badge bg="success">Active</Badge>*/}
+                                            {/*    )}*/}
+                                            {/*</p>*/}
                                         </div>
                                     </div>
                                 </div>
                             </Tab>
 
-                            {/* Player Tab */}
                             <Tab
                                 eventKey="player"
                                 title="Game Data"
@@ -188,14 +185,14 @@ export default function AdminUsers() {
                                                     <h5 className="mb-3">Game Statistics</h5>
                                                     <p><strong>Currency:</strong> {selectedUser.player.currency}</p>
                                                     <p><strong>Total Clicks:</strong> {selectedUser.player.clicks}</p>
-                                                    <p>
-                                                        <strong>Status:</strong> {' '}
-                                                        {selectedUser.player.ban_status ? (
-                                                            <Badge bg="danger">Banned</Badge>
-                                                        ) : (
-                                                            <Badge bg="success">Active</Badge>
-                                                        )}
-                                                    </p>
+                                                    {/*<p>*/}
+                                                    {/*    <strong>Status:</strong> {' '}*/}
+                                                    {/*    {selectedUser.player.ban_status ? (*/}
+                                                    {/*        <Badge bg="danger">Banned</Badge>*/}
+                                                    {/*    ) : (*/}
+                                                    {/*        <Badge bg="success">Active</Badge>*/}
+                                                    {/*    )}*/}
+                                                    {/*</p>*/}
                                                 </div>
                                                 <div className="col-md-6">
                                                     <h5 className="mb-3">Inventory</h5>

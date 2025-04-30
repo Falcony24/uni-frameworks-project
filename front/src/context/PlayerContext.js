@@ -42,7 +42,7 @@ export const PlayerProvider = ({ children }) => {
 
     useEffect(() => {
         if (!user && !loading && !upgradesLoading && player.upgrades.length === 0) {
-            const clickUpgrade = upgrades.find(u => u.effect === "CLICK_MULTIPLIER");
+            const clickUpgrade = upgrades.find(u => u.effect === "CLICK_POWER");
             if (clickUpgrade) {
                 setPlayer(prev => ({
                     ...prev,

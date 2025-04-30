@@ -46,8 +46,8 @@ const UpgradeForm = ({
                         value={formData.base_value}
                         onChange={(e) => setFormData({...formData, base_value: e.target.value})}
                         required
-                        min="0"
-                        step="0.1"
+                        min="1"
+                        step="1"
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -57,7 +57,8 @@ const UpgradeForm = ({
                         value={formData.base_cost}
                         onChange={(e) => setFormData({...formData, base_cost: e.target.value})}
                         required
-                        min="0"
+                        min="1"
+                        step="1"
                     />
                 </Form.Group>
             </Modal.Body>

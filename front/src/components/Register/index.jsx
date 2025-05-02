@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { usersSchema } from "../../shared/schemas/usersSchema";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
-import { validationSchema } from "../../authUtil";
+import { validationSchema } from "../../utils/authUtil";
 
 export default function Index() {
     const [user, setUserr] = useState({
@@ -84,7 +84,6 @@ export default function Index() {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                {/* password */}
                 <Form.Group controlId="formRegisterPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
@@ -104,7 +103,6 @@ export default function Index() {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                {/* submit button */}
                 <Button className="register-btn" variant="primary" type="submit">
                     Register
                 </Button>

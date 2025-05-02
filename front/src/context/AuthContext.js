@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { authenticateUser, signOut } from "../api/authAPI";
 import { Spinner, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { clearAllCookies } from "../utilCookie";
+import { clearAllCookies } from "../utils/utilCookie";
 
 const AuthContext = createContext(undefined);
 

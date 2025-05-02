@@ -5,7 +5,7 @@ import { signIn } from "../../api/authAPI"
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { usersLoginSchema } from "../../shared/schemas/usersSchema";
-import { validationSchema } from "../../authUtil";
+import { validationSchema } from "../../utils/authUtil";
 
 export default function Index() {
     const [user, setUserr] = useState({
@@ -63,7 +63,7 @@ export default function Index() {
                 </Form.Group>
 
                 <Form.Group controlId="formLoginPassword">
-                    <Form.Label>Hasło</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <Form.Control
                         type="password"
                         name="password"

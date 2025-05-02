@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 import ProfileBox from "./ProfileBox";
 import {usePlayer} from "../../context/PlayerContext";
 import {Card, Spinner} from "react-bootstrap";
-import { upgradeImages } from "../../constants"
 import {useUpgrades} from "../../context/UpgradesContext";
+import GameStatsBox from "./GameStatsBox";
+import ShoppingBox from "./ShoppingBox";
 
 export async function fetchAndCacheProfileData() {
     const [userResponse, customerResponse] = await Promise.all([
@@ -78,36 +79,10 @@ export default function Index() {
             <ProfileBox user={profile.user} setProfile={setProfile} />
             <div className="bottom-boxes">
                 {player && (
-                    <Card className="box">
-                        <h3><span className="led-indicator"></span>GAME</h3>
-                        <div className="game-stats">
-                            <p>Clicks: {player?.clicks}</p>
-                            <p>Currency: {player?.currency}</p>
-                            <p>Items: {player?.items.length === 0 ? "Did not unlocked yet" : player.items}</p>
-                        </div>
-                        <div className="unlocks-section">
-                            <h4><p>Unlocked Upgrades:</p></h4>
-                            <div className="upgrades-grid">
-                                {localUpgrades.map((upgrade) => (
-                                    <div key={upgrade._id} className="upgrade-item">
-                                        <img
-                                            src={upgradeImages[upgrade.name.toLowerCase().replace(/\s+/g, '_')]}
-                                            alt={upgrade.name}
-                                            className="upgrade-image"
-                                        />
-                                        <small>{upgrade.name}</small>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </Card>
+                    <GameStatsBox player={player} localUpgrades={localUpgrades} />
                 )}
                 {profile.customer?.address && (
-                    <Card className="box">
-                        <h1>Address</h1>
-                        <p>City: {profile.customer.address}</p>
-                        <button>Change address</button>
-                    </Card>
+                    <ShoppingBox address={profile.customer.address} />
                 )}
             </div>
             <button onClick={handleLogout} className="logout-button">Logout</button>
